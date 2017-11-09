@@ -21,38 +21,19 @@
             android:hint="Qual vacina?" />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/DataDaVacina"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/IDVacina">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Data em que tomou? DD/MM/AAAA HH:MM" />
-    </android.support.design.widget.TextInputLayout>
-
     <Button
         android:id="@+id/Salvar"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="116dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginLeft="52dp"
-        android:layout_marginTop="180dp"
         android:background="@android:color/holo_green_dark"
         android:text="Salvar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SegundaDose" />
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Switch
         android:id="@+id/SegundaDose"
@@ -60,11 +41,44 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="32dp"
         android:text="Possui segunda dose"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DataDaVacina" />
+
+    <EditText
+        android:id="@+id/DataDaVacina"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Data Da Vacina"
+        android:inputType="none"
+        android:onClick="showDatePickerDialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/IDVacina" />
+
+    <EditText
+        android:id="@+id/DataSegundaDose"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Data Da Segunda Dose"
+        android:inputType="none"
+        android:onClick="showDatePickerDialog"
+        app:layout_constraintBottom_toTopOf="@+id/Salvar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SegundaDose"
+        app:layout_constraintVertical_bias="0.179" />
+
 
 </android.support.constraint.ConstraintLayout>
