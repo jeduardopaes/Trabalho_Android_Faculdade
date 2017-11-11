@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,9 +13,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import br.com.vaciprev.vaciperv.adapter.VacinaAdapter;
+import br.com.vaciprev.vaciperv.modelos.ListPopuladaComVacinas;
+import br.com.vaciprev.vaciperv.modelos.Vacina;
+
 public class MainActivity extends AppCompatActivity  {
 
     FloatingActionButton adicionarVacina;
+
+    //para o recycler
+    LinearLayoutManager linearLayoutManager;
+    ArrayList<Vacina> vacinas;
+    VacinaAdapter vacinaAdapter;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +44,15 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        vacinas = ListPopuladaComVacinas.getList();
+        vacinaAdapter = new VacinaAdapter(MainActivity.this, vacinas);
 
+        linearLayoutManager = new LinearLayoutManager(this);
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(vacinaAdapter);
 
     }
 
