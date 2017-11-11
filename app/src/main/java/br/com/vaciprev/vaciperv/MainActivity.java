@@ -1,27 +1,30 @@
 package br.com.vaciprev.vaciperv;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import br.com.vaciprev.vaciperv.adapter.VacinaAdapter;
+import br.com.vaciprev.vaciperv.modelos.CarteiraDeVacinacao;
 import br.com.vaciprev.vaciperv.modelos.ListPopuladaComVacinas;
 import br.com.vaciprev.vaciperv.modelos.Vacina;
 
 public class MainActivity extends AppCompatActivity  {
 
     FloatingActionButton adicionarVacina;
+
+    CarteiraDeVacinacao carteiraDeVacinacao = new CarteiraDeVacinacao(ListPopuladaComVacinas.getList());
 
     //para o recycler
     LinearLayoutManager linearLayoutManager;
@@ -45,14 +48,38 @@ public class MainActivity extends AppCompatActivity  {
         });
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        vacinas = ListPopuladaComVacinas.getList();
-        vacinaAdapter = new VacinaAdapter(MainActivity.this, vacinas);
+        //vacinas = ListPopuladaComVacinas.getList();
+
+        //vacinas = new ArrayList<>();
+
+        vacinaAdapter = new VacinaAdapter(MainActivity.this,
+                (ArrayList<Vacina>) carteiraDeVacinacao.getCarteira());
 
         linearLayoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(vacinaAdapter);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            try {
+                boolean value = extras.getBoolean("vacina_segundaDose");
+                if (value) {
+                    carteiraDeVacinacao.addVacina(new Vacina(extras.getString("vacina_Nome"),
+                            new Date(extras.getString("vacina_Data")),
+                            new Date(extras.getString("vacina_Segunda_Data"))
+                    ));
+                } else {
+                    carteiraDeVacinacao.addVacina(new Vacina(extras.getString("vacina_Nome"),
+                            new Date(extras.getString("vacina_Data"))
+                    ));
+                }
+            }catch (Exception e){
+                Toast.makeText(this, "Deu Merda!!", Toast.LENGTH_SHORT).show();
+            }
+
+        }
 
     }
 
