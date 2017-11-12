@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity  {
 
     //para o recycler
     LinearLayoutManager linearLayoutManager;
-    ArrayList<Vacina> vacinas;
+    //ArrayList<Vacina> vacinas;
     VacinaAdapter vacinaAdapter;
     RecyclerView recyclerView;
 
@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity  {
         adicionarVacina.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CadastroDeVacinas.class));
+                Intent i = new Intent(MainActivity.this, CadastroDeVacinas.class);
+                startActivity(i);
             }
         });
 
@@ -67,12 +68,12 @@ public class MainActivity extends AppCompatActivity  {
                 boolean value = extras.getBoolean("vacina_segundaDose");
                 if (value) {
                     carteiraDeVacinacao.addVacina(new Vacina(extras.getString("vacina_Nome"),
-                            new Date(extras.getString("vacina_Data")),
-                            new Date(extras.getString("vacina_Segunda_Data"))
+                            extras.getString("vacina_Data"),
+                            extras.getString("vacina_Segunda_Data")
                     ));
                 } else {
                     carteiraDeVacinacao.addVacina(new Vacina(extras.getString("vacina_Nome"),
-                            new Date(extras.getString("vacina_Data"))
+                            extras.getString("vacina_Data")
                     ));
                 }
             }catch (Exception e){

@@ -14,16 +14,16 @@ public class Vacina {
     private boolean segundaDose;
     private Date dataDaSegundaDose;
 
-    public Vacina(String nome, Date dataDeAplicacao, Date dataDaSegundaDose) {
+    public Vacina(String nome, String dataDeAplicacao, String dataDaSegundaDose) {
         this.nome = nome;
-        this.dataDeAplicacao = dataDeAplicacao;
+        this.dataDeAplicacao = DateHelper.ordenarParaDate(dataDeAplicacao);
         this.segundaDose = true;
-        this.dataDaSegundaDose = dataDaSegundaDose;
+        this.dataDaSegundaDose = DateHelper.ordenarParaDate(dataDaSegundaDose);
     }
 
-    public Vacina(String nome, Date dataDeAplicacao) {
+    public Vacina(String nome, String dataDeAplicacao) {
         this.nome = nome;
-        this.dataDeAplicacao = dataDeAplicacao;
+        this.dataDeAplicacao = DateHelper.ordenarParaDate(dataDeAplicacao);
         this.segundaDose = false;
     }
 

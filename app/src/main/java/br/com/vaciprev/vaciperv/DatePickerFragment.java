@@ -9,6 +9,7 @@ import android.text.Layout;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import java.util.Calendar;
 
@@ -31,8 +32,16 @@ public class DatePickerFragment extends DialogFragment
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         EditText data = (EditText) getActivity().findViewById(R.id.DataDaVacina);
+        Switch segundaDose = (Switch) getActivity().findViewById(R.id.SegundaDose);
+        EditText data2 = (EditText) getActivity().findViewById(R.id.DataSegundaDose);
 
-        data.setText(day+"/"+month+"/"+year);
+        //data.setText(day+"/"+month+"/"+year);
+
+        if(segundaDose.isChecked()){
+            data2.setText(day+"/"+month+"/"+year);
+        }else{
+            data.setText(day+"/"+month+"/"+year);
+        }
     }
 
 

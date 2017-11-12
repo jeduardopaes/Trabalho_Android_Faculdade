@@ -46,9 +46,9 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
             holder.vacinaSegundaData.setText(DateHelper.getDataFormated(vacina.getDataDaSegundaDose()));
         }
 
-
-
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -67,6 +67,13 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
             vacinaTitulo = (TextView) itemView.findViewById(R.id.vacina_title);
             vacinaData = (TextView) itemView.findViewById(R.id.vacina_data);
             vacinaSegundaData = (TextView) itemView.findViewById(R.id.vacina_data_segunda_dose);
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View v) {
+                    return true;
+                }
+            });
 
         }
     }
