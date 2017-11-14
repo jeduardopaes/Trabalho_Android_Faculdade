@@ -5,6 +5,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,12 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import java.util.Date;
+
+import br.com.vaciprev.vaciperv.modelos.DateHelper;
+import br.com.vaciprev.vaciperv.modelos.Vacina;
+import br.com.vaciprev.vaciperv.modelos.VacinaDAO;
 
 
 public class CadastroDeVacinas extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
@@ -23,9 +30,14 @@ public class CadastroDeVacinas extends AppCompatActivity implements CompoundButt
     Switch SegundaDose;
     Button Salvar;
 
+    private VacinaDAO vacinaDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        vacinaDAO = new VacinaDAO();
+
         setContentView(R.layout.activity_cadastro_de_vacinas);
 
         IDVacina = (TextInputLayout) findViewById(R.id.IDVacina);
@@ -43,55 +55,60 @@ public class CadastroDeVacinas extends AppCompatActivity implements CompoundButt
             @Override
             public void onClick(View v) {
 
+
+
                 if( IDVacina.getEditText().getText().toString().length() == 0 ) {
                     IDVacina.getEditText().setError("Preencha os campos");
                 }else if( DataDaVacina.getText().toString().length() == 0 ){
                     DataDaVacina.setError( "Preencha os campos" );
                 }else{
-                    Intent intent = new Intent(CadastroDeVacinas.this, MainActivity.class);
-                    intent.putExtra("vacina_Nome", IDVacina.getEditText().getText().toString());
-                    intent.putExtra("vacina_Data", DataDaVacina.getText().toString());
-                    intent.putExtra("vacina_segundaDose", SegundaDose.isChecked());
-                    intent.putExtra("vacina_Segunda_Data", DataDaSegundaDose.getText().toString());
-                    startActivity(intent);
+
+//                    String vacinaTitulo = IDVacina.getEditText().getText().toString();
+//                    Long data = DateHelper.ordenarParaDate(DataDaVacina.getText().toString()).getTime();
+//                    Long data2 = DateHelper.ordenarParaDate(DataDaSegundaDose.getText().toString()).getTime();
 
                     if(SegundaDose.isChecked()){
+
+                        String vacinaTitulo = IDVacina.getEditText().getText().toString();
+                        Long data = DateHelper.ordenarParaDate(DataDaVacina.getText().toString()).getTime();
+                        Long data2 = DateHelper.ordenarParaDate(DataDaSegundaDose.getText().toString()).getTime();
+
+                        vacinaDAO.save(new Vacina(vacinaTitulo, data, data2));
+
+                        Log.d("Salvou","++++++SALVOU++++++++");
+
                         Toast.makeText(CadastroDeVacinas.this,
                                 IDVacina.getEditText().getText().toString()+" "
                                         +DataDaVacina.getText().toString()+" "
                                         +DataDaSegundaDose.getText().toString()+" "
-                                , Toast.LENGTH_LONG).show();
+                                , Toast.LENGTH_SHORT).show();
                     }else{
+
+                        String vacinaTitulo = IDVacina.getEditText().getText().toString();
+                        Long data = DateHelper.ordenarParaDate(DataDaVacina.getText().toString()).getTime();
+
+                        Log.d("Salvou222222","++++++SALVOU++++++++");
+
+                        vacinaDAO.save(new Vacina(vacinaTitulo, data));
+
                         Toast.makeText(CadastroDeVacinas.this,
                                 IDVacina.getEditText().getText().toString()+ " "
                                         +DataDaVacina.getText().toString()+" "
-                                , Toast.LENGTH_LONG).show();
+                                , Toast.LENGTH_SHORT).show();
                     }
+
+                    Intent intent = new Intent(CadastroDeVacinas.this, MainActivity.class);
+                    startActivity(intent);
+
+                    finish();
+
+
                 }
 
             }
         });
 
         SegundaDose.setOnCheckedChangeListener(this);
-
-
-//        DataDaVacina.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if(hasFocus){
-//                    showDatePickerDialog(v);
-//                }
-//            }
-//        });
-//
-//        DataDaSegundaDose.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if(hasFocus){
-//                    showDatePickerDialog(v);
-//                }
-//            }
-//        });
 
     }
 
@@ -107,8 +124,4 @@ public class CadastroDeVacinas extends AppCompatActivity implements CompoundButt
         }
     }
 
-//    public void showDatePickerDialog(View v) {
-//        DialogFragment newFragment = new DatePickerFragment();
-//        newFragment.show(getSupportFragmentManager(), "datePicker");
-//    }
 }

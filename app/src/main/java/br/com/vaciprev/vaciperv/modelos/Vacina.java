@@ -1,56 +1,63 @@
 package br.com.vaciprev.vaciperv.modelos;
 
-/**
- * Created by jedua on 11/11/2017.
- */
-
 import java.util.Date;
 
 public class Vacina {
 
-    private int idVacina;
+    //private String idVacina;
     private String nome;
-    private Date dataDeAplicacao;
+    private Long dataDeAplicacao;
     private boolean segundaDose;
-    private Date dataDaSegundaDose;
+    private Long dataDaSegundaDose;
 
-    public Vacina(String nome, String dataDeAplicacao, String dataDaSegundaDose) {
+    public Vacina(String nome, Long dataDeAplicacao, Long dataDaSegundaDose) {
         this.nome = nome;
-        this.dataDeAplicacao = DateHelper.ordenarParaDate(dataDeAplicacao);
+        this.dataDeAplicacao = dataDeAplicacao;
         this.segundaDose = true;
-        this.dataDaSegundaDose = DateHelper.ordenarParaDate(dataDaSegundaDose);
+        this.dataDaSegundaDose = dataDaSegundaDose;
     }
 
-    public Vacina(String nome, String dataDeAplicacao) {
+    public Vacina(String nome, Long dataDeAplicacao) {
         this.nome = nome;
-        this.dataDeAplicacao = DateHelper.ordenarParaDate(dataDeAplicacao);
+        this.dataDeAplicacao = dataDeAplicacao;
         this.segundaDose = false;
+    }
+
+    public Vacina(){
+
     }
 
     public String getNome() {
         return nome;
     }
 
-    public Date getDataDeAplicacao() {
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Long getDataDeAplicacao() {
         return dataDeAplicacao;
     }
 
-    public boolean hasSegundaDose() {
+    public void setDataDeAplicacao(Long dataDeAplicacao) {
+        this.dataDeAplicacao = dataDeAplicacao;
+    }
+
+    public boolean isSegundaDose() {
         return segundaDose;
     }
 
-    public Date getDataDaSegundaDose() {
-        return dataDaSegundaDose;
-    }
-
-    public int getIdVacina(){
-        return this.idVacina;
-    }
-
-    public void setSegundaDose(boolean segundaDose){
+    public void setSegundaDose(boolean segundaDose) {
         this.segundaDose = segundaDose;
     }
 
+    public Long getDataDaSegundaDose() {
+        return dataDaSegundaDose;
+    }
+
+    public void setDataDaSegundaDose(Long dataDaSegundaDose) {
+        this.dataDaSegundaDose = dataDaSegundaDose;
+    }
 
     @Override
     public String toString() {
@@ -58,10 +65,15 @@ public class Vacina {
 
         String vacina = "";
 
-        vacina += this.getIdVacina()+" - ";
+//        vacina += this.getIdVacina()+" - ";
         vacina += this.getNome()+" - ";
-        vacina += DateHelper.getDataFormated(this.getDataDeAplicacao())  +". ";
+        vacina += DateHelper.getDataFormated(new Date(this.getDataDeAplicacao()))  +". ";
 
         return vacina;
     }
+
+    public boolean hasSegundaDose(){
+        return this.segundaDose;
+    }
+
 }

@@ -75,4 +75,5 @@
     <string name="pref_title_vibrate">Vibrate</string>
 
     <string name="pick_date">Data Da Vacina</string>
+    <string name="logo_image">Logo Do APP</string>
 </resources>

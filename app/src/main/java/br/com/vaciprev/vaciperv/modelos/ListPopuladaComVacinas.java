@@ -8,9 +8,12 @@ public class ListPopuladaComVacinas {
     public static ArrayList<Vacina> getList(){
         ArrayList<Vacina> vacinas = new ArrayList<>();
 
-        vacinas.add(new Vacina("Hepatite", "08/11/2016"));
-        vacinas.add(new Vacina("Anti-tetânica", "02/11/2016", "11/11/2017"));
-        vacinas.add(new Vacina("Poliomielite", "03/12/2016"));
+        vacinas.add(new Vacina("Hepatite", new Date("08/11/2016").getTime()));
+        vacinas.add(new Vacina("Anti-tetânica",
+                new Date("02/11/2016").getTime(),
+                new Date("11/11/2017").getTime()));
+        vacinas.add(new Vacina("Poliomielite",
+                new Date("03/12/2016").getTime()));
 
 
 

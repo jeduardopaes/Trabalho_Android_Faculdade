@@ -2,16 +2,20 @@ package br.com.vaciprev.vaciperv.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import br.com.vaciprev.vaciperv.R;
 import br.com.vaciprev.vaciperv.modelos.DateHelper;
 import br.com.vaciprev.vaciperv.modelos.Vacina;
+import br.com.vaciprev.vaciperv.modelos.VacinaDAO;
 
 
 public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHolder> {
@@ -40,10 +44,10 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
         Vacina vacina = vacinas.get(position);
 
         holder.vacinaTitulo.setText(vacina.getNome());
-        holder.vacinaData.setText(DateHelper.getDataFormated(vacina.getDataDeAplicacao()));
+        holder.vacinaData.setText(DateHelper.getDataFormated(new Date(vacina.getDataDeAplicacao())));
 
         if(vacina.hasSegundaDose()){
-            holder.vacinaSegundaData.setText(DateHelper.getDataFormated(vacina.getDataDaSegundaDose()));
+            holder.vacinaSegundaData.setText(DateHelper.getDataFormated(new Date(vacina.getDataDaSegundaDose())));
         }
 
     }
@@ -61,20 +65,25 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
         TextView vacinaData;
         TextView vacinaSegundaData;
 
-        public VacinaHolder(View itemView) {
+        public VacinaHolder(final View itemView) {
             super(itemView);
 
             vacinaTitulo = (TextView) itemView.findViewById(R.id.vacina_title);
             vacinaData = (TextView) itemView.findViewById(R.id.vacina_data);
             vacinaSegundaData = (TextView) itemView.findViewById(R.id.vacina_data_segunda_dose);
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener(){
+            itemView.setOnLongClickListener(new OnLongClickListener(){
                 @Override
                 public boolean onLongClick(View v) {
+
+                    
+
                     return true;
                 }
             });
 
         }
     }
+
+
 }

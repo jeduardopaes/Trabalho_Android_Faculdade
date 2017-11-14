@@ -1,9 +1,11 @@
 package br.com.vaciprev.vaciperv.modelos;
 
 
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,13 +18,23 @@ public class DateHelper {
     }
 
     public static Date ordenarParaDate(String dataEmTexto){
-        String day = dataEmTexto.charAt(0)+""+dataEmTexto.charAt(1);
-        String month = dataEmTexto.charAt(3)+""+dataEmTexto.charAt(4);
-        String year = dataEmTexto.charAt(6)+""+dataEmTexto.charAt(7)+""
-                +dataEmTexto.charAt(8)+""+dataEmTexto.charAt(9);
 
+        String[] dataQuebrada = dataEmTexto.split("/");
 
-        return new Date(month+"/"+day+"/"+year);
+        Log.d("DATA EM TEXTO:", dataEmTexto);
+
+        Date data = new Date(dataQuebrada[1]+"/"+dataQuebrada[0]+"/"+dataQuebrada[2]);
+
+        return data;
+    }
+
+    public static Date parseParaLong(String dataEmTexto){
+
+        String[] dataQuebrada = dataEmTexto.split("/");
+
+        Date data = new Date(dataQuebrada[1]+"/"+dataQuebrada[0]+"/"+dataQuebrada[2]);
+
+        return data;
     }
 
 }

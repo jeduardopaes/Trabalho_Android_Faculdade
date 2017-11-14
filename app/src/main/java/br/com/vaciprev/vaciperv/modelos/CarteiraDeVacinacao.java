@@ -34,20 +34,20 @@ public class CarteiraDeVacinacao {
         return vacinaEncontrada;
     }
 
-    public Vacina getVacina(int idVacina){
-
-        Vacina vacinaEncontrada = null;
-
-        for( Vacina v : carteira){
-            if(v.getIdVacina() != idVacina){
-                continue;
-            }else{
-                vacinaEncontrada = v;
-            }
-        }
-
-        return vacinaEncontrada;
-    }
+//    public Vacina getVacina(String idVacina){
+//
+//        Vacina vacinaEncontrada = null;
+//
+//        for( Vacina v : carteira){
+//            if(!v.getIdVacina().equalsIgnoreCase(idVacina) ){
+//                continue;
+//            }else{
+//                vacinaEncontrada = v;
+//            }
+//        }
+//
+//        return vacinaEncontrada;
+//    }
 
     public List<Vacina> getCarteira(){
         return this.carteira;

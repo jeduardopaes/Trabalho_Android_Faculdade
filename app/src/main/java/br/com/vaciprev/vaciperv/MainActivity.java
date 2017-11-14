@@ -2,6 +2,7 @@ package br.com.vaciprev.vaciperv;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,32 +13,63 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
-import java.util.Date;
 
 import br.com.vaciprev.vaciperv.adapter.VacinaAdapter;
 import br.com.vaciprev.vaciperv.modelos.CarteiraDeVacinacao;
-import br.com.vaciprev.vaciperv.modelos.ListPopuladaComVacinas;
+import br.com.vaciprev.vaciperv.modelos.CarteiraDeVacinacaoDAO;
 import br.com.vaciprev.vaciperv.modelos.Vacina;
 
 public class MainActivity extends AppCompatActivity  {
 
     FloatingActionButton adicionarVacina;
 
-    CarteiraDeVacinacao carteiraDeVacinacao = new CarteiraDeVacinacao(ListPopuladaComVacinas.getList());
+    CarteiraDeVacinacao carteiraDeVacinacao;
 
     //para o recycler
     LinearLayoutManager linearLayoutManager;
-    //ArrayList<Vacina> vacinas;
     VacinaAdapter vacinaAdapter;
     RecyclerView recyclerView;
+
+    //DataBase
+//    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+//    DatabaseReference dbLista = dbRef.child("Titulo");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        initCarteiraDeVacinacao();
+
+
+
         initToolbar();
 
+        initFloatButton();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                initRecyclerView();
+            }
+        }, 1500);
+        //initRecyclerView();
+
+    }
+
+    public void initCarteiraDeVacinacao(){
+        CarteiraDeVacinacaoDAO carteiraDeVacinacaoDAO = new CarteiraDeVacinacaoDAO();
+
+        carteiraDeVacinacao = new CarteiraDeVacinacao(carteiraDeVacinacaoDAO.carregaCarteiraDeVacina());
+    }
+
+    public void initFloatButton(){
         adicionarVacina = (FloatingActionButton) findViewById(R.id.Add_Vacina);
 
         adicionarVacina.setOnClickListener(new View.OnClickListener(){
@@ -47,11 +79,11 @@ public class MainActivity extends AppCompatActivity  {
                 startActivity(i);
             }
         });
+    }
 
+    public void initRecyclerView(){
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        //vacinas = ListPopuladaComVacinas.getList();
 
-        //vacinas = new ArrayList<>();
 
         vacinaAdapter = new VacinaAdapter(MainActivity.this,
                 (ArrayList<Vacina>) carteiraDeVacinacao.getCarteira());
@@ -61,27 +93,11 @@ public class MainActivity extends AppCompatActivity  {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(vacinaAdapter);
+    }
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            try {
-                boolean value = extras.getBoolean("vacina_segundaDose");
-                if (value) {
-                    carteiraDeVacinacao.addVacina(new Vacina(extras.getString("vacina_Nome"),
-                            extras.getString("vacina_Data"),
-                            extras.getString("vacina_Segunda_Data")
-                    ));
-                } else {
-                    carteiraDeVacinacao.addVacina(new Vacina(extras.getString("vacina_Nome"),
-                            extras.getString("vacina_Data")
-                    ));
-                }
-            }catch (Exception e){
-                Toast.makeText(this, "Deu Merda!!", Toast.LENGTH_SHORT).show();
-            }
-
-        }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     private void initToolbar(){

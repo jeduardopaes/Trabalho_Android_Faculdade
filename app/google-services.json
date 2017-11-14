@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "624240842829",
+    "firebase_url": "https://vaciperv.firebaseio.com",
+    "project_id": "vaciperv",
+    "storage_bucket": "vaciperv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624240842829:android:6817553e5838ba1a",
+        "android_client_info": {
+          "package_name": "br.com.vaciprev.vaciperv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624240842829-ft5dka1chd2g8ntcn6pctrrrs0eldcld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.vaciprev.vaciperv",
+            "certificate_hash": "c17bb10d9046268910ad95f4c03507ced31cb680"
+          }
+        },
+        {
+          "client_id": "624240842829-140sq00cmf4h7309l3n2r0t1fvsfn2d6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4OJbfh_mJw8UYTOgKyUEpgK6GxMWHgJY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624240842829-140sq00cmf4h7309l3n2r0t1fvsfn2d6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
