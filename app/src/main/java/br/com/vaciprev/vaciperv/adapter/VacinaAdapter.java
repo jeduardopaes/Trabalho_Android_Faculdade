@@ -1,6 +1,7 @@
 package br.com.vaciprev.vaciperv.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,9 +10,16 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Date;
 
+import br.com.vaciprev.vaciperv.MainActivity;
 import br.com.vaciprev.vaciperv.R;
 import br.com.vaciprev.vaciperv.modelos.DateHelper;
 import br.com.vaciprev.vaciperv.modelos.Vacina;
@@ -26,6 +34,11 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
     public VacinaAdapter(Context context, ArrayList<Vacina> vacinas) {
         this.context = context;
         this.vacinas = vacinas;
+    }
+
+    public VacinaAdapter(Context context) {
+        this.context = context;
+        this.vacinas = new ArrayList<Vacina>();
     }
 
     @Override
@@ -52,6 +65,20 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
 
     }
 
+    public void addVacina(Vacina v) {
+        this.vacinas.add(v);
+        notifyDataSetChanged();
+    }
+
+    private void remove(Vacina vacina){
+        this.vacinas.remove(vacina);
+        notifyDataSetChanged();
+    }
+
+    public void update(){
+        notifyDataSetChanged();
+    }
+
 
 
     @Override
@@ -59,7 +86,11 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
         return vacinas.size();
     }
 
-    public static class VacinaHolder extends RecyclerView.ViewHolder{
+    public void clearList() {
+        this.vacinas.clear();
+    }
+
+    public class VacinaHolder extends RecyclerView.ViewHolder{
 
         TextView vacinaTitulo;
         TextView vacinaData;
@@ -76,8 +107,15 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
                 @Override
                 public boolean onLongClick(View v) {
 
-                    
+                    Log.d("RemoveFromDB","DBVACINADEVERIASERREMOVIDA");
 
+                    int vacinaPosition = getLayoutPosition();
+
+                    VacinaDAO.remove(vacinas.get(vacinaPosition));
+                    notifyItemRemoved(vacinaPosition);
+
+
+                    //remove(vacinas.get(getLayoutPosition()));
                     return true;
                 }
             });

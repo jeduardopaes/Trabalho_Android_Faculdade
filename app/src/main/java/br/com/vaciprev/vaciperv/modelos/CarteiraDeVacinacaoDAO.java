@@ -1,5 +1,7 @@
 package br.com.vaciprev.vaciperv.modelos;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +32,8 @@ public class CarteiraDeVacinacaoDAO {
                     Vacina vacina = dadosDoBanco.getValue(Vacina.class);
 
                     vacinas.add(vacina);
+
+                    Log.d("DataBase","Dados Aqui!");
 
                 }
 

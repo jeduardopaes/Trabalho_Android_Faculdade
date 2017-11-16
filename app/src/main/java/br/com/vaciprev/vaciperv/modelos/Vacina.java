@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Vacina {
 
-    //private String idVacina;
+    private String idVacina;
     private String nome;
     private Long dataDeAplicacao;
     private boolean segundaDose;
@@ -59,13 +59,21 @@ public class Vacina {
         this.dataDaSegundaDose = dataDaSegundaDose;
     }
 
+    public String getIdVacina() {
+        return idVacina;
+    }
+
+    public void setIdVacina(String idVacina) {
+        this.idVacina = idVacina;
+    }
+
     @Override
     public String toString() {
 
 
         String vacina = "";
 
-//        vacina += this.getIdVacina()+" - ";
+        vacina += this.getIdVacina()+" - ";
         vacina += this.getNome()+" - ";
         vacina += DateHelper.getDataFormated(new Date(this.getDataDeAplicacao()))  +". ";
 
@@ -75,5 +83,7 @@ public class Vacina {
     public boolean hasSegundaDose(){
         return this.segundaDose;
     }
+
+
 
 }

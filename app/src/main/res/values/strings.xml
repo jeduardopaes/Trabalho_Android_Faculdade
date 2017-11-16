@@ -76,4 +76,8 @@
 
     <string name="pick_date">Data Da Vacina</string>
     <string name="logo_image">Logo Do APP</string>
+
+    <string name="login_user">Usuário</string>
+
+    <string name="login_pass">Senha</string>
 </resources>

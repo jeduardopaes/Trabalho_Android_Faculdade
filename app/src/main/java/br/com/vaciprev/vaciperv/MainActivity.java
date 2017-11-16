@@ -1,5 +1,6 @@
 package br.com.vaciprev.vaciperv;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,13 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -53,15 +58,19 @@ public class MainActivity extends AppCompatActivity  {
 
         initFloatButton();
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                initRecyclerView();
-            }
-        }, 1500);
-        //initRecyclerView();
+        //Handler handler = new Handler();
+        //handler.postDelayed(new Runnable() {
+//            public void run() {
+//                initRecyclerView();
+//            }
+//        }, 1500);
+        initRecyclerView();
+
+
 
     }
+
+
 
     public void initCarteiraDeVacinacao(){
         CarteiraDeVacinacaoDAO carteiraDeVacinacaoDAO = new CarteiraDeVacinacaoDAO();
@@ -85,8 +94,7 @@ public class MainActivity extends AppCompatActivity  {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
 
-        vacinaAdapter = new VacinaAdapter(MainActivity.this,
-                (ArrayList<Vacina>) carteiraDeVacinacao.getCarteira());
+        vacinaAdapter = new VacinaAdapter(MainActivity.this);
 
         linearLayoutManager = new LinearLayoutManager(this);
 
@@ -95,9 +103,54 @@ public class MainActivity extends AppCompatActivity  {
         recyclerView.setAdapter(vacinaAdapter);
     }
 
+
+
     @Override
     protected void onStart() {
         super.onStart();
+
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference dbLista = dbRef.child("CarteiraDeVacinacao");
+
+        dbLista.addValueEventListener(new ValueEventListener() {
+
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                vacinaAdapter.clearList();
+
+                //todas as vacinas do banco de dados.
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for (DataSnapshot dadosDoBanco : children) {
+
+                    Vacina vacina = dadosDoBanco.getValue(Vacina.class);
+                    vacina.setIdVacina(dadosDoBanco.getKey());
+                    vacinaAdapter.addVacina(vacina);
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+
+    public void update(Context context){
+
+
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     private void initToolbar(){
