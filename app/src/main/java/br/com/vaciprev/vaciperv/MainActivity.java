@@ -39,10 +39,6 @@ public class MainActivity extends AppCompatActivity  {
     VacinaAdapter vacinaAdapter;
     RecyclerView recyclerView;
 
-    //DataBase
-//    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-//    DatabaseReference dbLista = dbRef.child("Titulo");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,19 +54,11 @@ public class MainActivity extends AppCompatActivity  {
 
         initFloatButton();
 
-        //Handler handler = new Handler();
-        //handler.postDelayed(new Runnable() {
-//            public void run() {
-//                initRecyclerView();
-//            }
-//        }, 1500);
         initRecyclerView();
 
 
 
     }
-
-
 
     public void initCarteiraDeVacinacao(){
         CarteiraDeVacinacaoDAO carteiraDeVacinacaoDAO = new CarteiraDeVacinacaoDAO();
@@ -102,8 +90,6 @@ public class MainActivity extends AppCompatActivity  {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(vacinaAdapter);
     }
-
-
 
     @Override
     protected void onStart() {
@@ -143,8 +129,6 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-
-
     public void update(Context context){
 
 
@@ -156,7 +140,7 @@ public class MainActivity extends AppCompatActivity  {
     private void initToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_principal);
         toolbar.setTitle(R.string.app_name);
-        toolbar.setLogo(R.mipmap.ic_logo);
+        toolbar.setLogo(R.mipmap.ic_logo_dark);
         setSupportActionBar(toolbar);
     }
 
@@ -169,6 +153,10 @@ public class MainActivity extends AppCompatActivity  {
                 break;
             case R.id.User:
                 Toast.makeText(this, "Dados do Usuário", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, PerfilDoUsuario.class));
+                break;
+            case R.id.Logoff:
+                startActivity(new Intent(MainActivity.this, TelaLogin.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

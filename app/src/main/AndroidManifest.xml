@@ -26,7 +26,8 @@
                 android:value="br.com.vaciprev.vaciperv.MainActivity" />
         </activity>
         <activity android:name=".CadastroDeVacinas" />
-        <activity android:name=".TelaLogin"></activity>
+        <activity android:name=".TelaLogin" />
+        <activity android:name=".PerfilDoUsuario"></activity>
     </application>
 
 </manifest>

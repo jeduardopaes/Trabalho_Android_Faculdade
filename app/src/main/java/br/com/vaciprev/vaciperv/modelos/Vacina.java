@@ -23,7 +23,7 @@ public class Vacina {
         this.segundaDose = false;
     }
 
-    public Vacina(){
+    public Vacina() {
 
     }
 
@@ -73,17 +73,16 @@ public class Vacina {
 
         String vacina = "";
 
-        vacina += this.getIdVacina()+" - ";
-        vacina += this.getNome()+" - ";
-        vacina += DateHelper.getDataFormated(new Date(this.getDataDeAplicacao()))  +". ";
+        vacina += this.getIdVacina() + " - ";
+        vacina += this.getNome() + " - ";
+        vacina += DateHelper.getDataFormated(new Date(this.getDataDeAplicacao())) + ". ";
 
         return vacina;
     }
 
-    public boolean hasSegundaDose(){
+    public boolean hasSegundaDose() {
         return this.segundaDose;
     }
-
 
 
 }

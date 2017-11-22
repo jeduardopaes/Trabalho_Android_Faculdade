@@ -8,26 +8,26 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class VacinaDAO {
 
-    public void save(Vacina vacina){
+    public void save(Vacina vacina) {
         //DataBase
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference dbLista = dbRef.child("CarteiraDeVacinacao");
 
-        Log.d("Salvando","Dados Sendo Salvos.");
+        Log.d("Salvando", "Dados Sendo Salvos.");
 
-        try{
+        try {
 
             dbLista.push().setValue(vacina);
-            Log.d("Salvando","Salvos.");
-        }catch (Exception e){
-            Log.d("Salvando","ERROR: Dados não Salvos.");
+            Log.d("Salvando", "Salvos.");
+        } catch (Exception e) {
+            Log.d("Salvando", "ERROR: Dados não Salvos.");
             e.printStackTrace();
 
         }
     }
 
 
-    public static void remove(Vacina vacina){
+    public static void remove(Vacina vacina) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference dbLista = dbRef.child("CarteiraDeVacinacao");
 

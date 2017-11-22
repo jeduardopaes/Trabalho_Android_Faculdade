@@ -44,7 +44,7 @@ public class CadastroDeVacinas extends AppCompatActivity implements CompoundButt
 
     }
 
-    public void initAll(){
+    public void initAll() {
         vacinaDAO = new VacinaDAO();
         IDVacina = (TextInputLayout) findViewById(R.id.IDVacina);
         DataDaVacina = (EditText) findViewById(R.id.DataDaVacina);
@@ -57,27 +57,26 @@ public class CadastroDeVacinas extends AppCompatActivity implements CompoundButt
         SegundaDose.setOnCheckedChangeListener(this);
     }
 
-    public void initButtonSalvar(){
+    public void initButtonSalvar() {
         Salvar = (Button) findViewById(R.id.Salvar);
 
-        Salvar.setOnClickListener(new View.OnClickListener(){
+        Salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                if(validacao()){
+                if (validacao()) {
 
-                    if(SegundaDose.isChecked()){
+                    if (SegundaDose.isChecked()) {
 
-                        if(validacaoSegundaData()) {
+                        if (validacaoSegundaData()) {
                             cadastrarVacinaDuasDatas();
                             chamaOutraActivity();
                         }
-                    }else{
+                    } else {
                         cadastrarVacinaUmaData();
                         chamaOutraActivity();
                     }
-
 
 
                 }
@@ -86,14 +85,14 @@ public class CadastroDeVacinas extends AppCompatActivity implements CompoundButt
 
     }
 
-    private void chamaOutraActivity(){
+    private void chamaOutraActivity() {
         Intent intent = new Intent(CadastroDeVacinas.this, MainActivity.class);
         startActivity(intent);
 
         finish();
     }
 
-    private void cadastrarVacinaDuasDatas(){
+    private void cadastrarVacinaDuasDatas() {
         String vacinaTitulo = IDVacina.getEditText().getText().toString();
         Long data = DateHelper.ordenarParaDate(DataDaVacina.getText().toString()).getTime();
         Long data2 = DateHelper.ordenarParaDate(DataDaSegundaDose.getText().toString()).getTime();
@@ -109,51 +108,51 @@ public class CadastroDeVacinas extends AppCompatActivity implements CompoundButt
                 , Toast.LENGTH_SHORT).show();
     }
 
-    private void cadastrarVacinaUmaData(){
+    private void cadastrarVacinaUmaData() {
         String vacinaTitulo = IDVacina.getEditText().getText().toString();
         Long data = DateHelper.ordenarParaDate(DataDaVacina.getText().toString()).getTime();
 
-        Log.d("Salvou222222","++++++SALVOU++++++++");
+        Log.d("Salvou222222", "++++++SALVOU++++++++");
 
         vacinaDAO.save(new Vacina(vacinaTitulo, data));
 
         Toast.makeText(CadastroDeVacinas.this,
-                IDVacina.getEditText().getText().toString()+ " "
-                        +DataDaVacina.getText().toString()+" "
+                IDVacina.getEditText().getText().toString() + " "
+                        + DataDaVacina.getText().toString() + " "
                 , Toast.LENGTH_SHORT).show();
     }
 
-    private boolean validacao(){
-        if( IDVacina.getEditText().getText().toString().length() == 0 ) {
+    private boolean validacao() {
+        if (IDVacina.getEditText().getText().toString().length() == 0) {
             IDVacina.getEditText().setError("Preencha os campos");
 
             return false;
-        }else if( DataDaVacina.getText().toString().length() == 0
+        } else if (DataDaVacina.getText().toString().length() == 0
                 || !DataDaVacina.getText().toString().matches("\\d{2}/\\d{2}/\\d{4}")) {
             DataDaVacina.setError("Preencha os campos - DD/MM/AAAA");
 
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
-    private boolean validacaoSegundaData(){
-        if(DataDaSegundaDose.getText().toString().length() == 0
-                || !DataDaSegundaDose.getText().toString().matches("\\d{2}/\\d{2}/\\d{4}")){
+    private boolean validacaoSegundaData() {
+        if (DataDaSegundaDose.getText().toString().length() == 0
+                || !DataDaSegundaDose.getText().toString().matches("\\d{2}/\\d{2}/\\d{4}")) {
             DataDaSegundaDose.setError("Preencha os campos - DD/MM/AAAA");
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if(SegundaDose.isChecked()){
+        if (SegundaDose.isChecked()) {
             DataDaSegundaDose.setVisibility(View.VISIBLE);
 
-        }else{
+        } else {
             DataDaSegundaDose.setVisibility(View.INVISIBLE);
         }
     }

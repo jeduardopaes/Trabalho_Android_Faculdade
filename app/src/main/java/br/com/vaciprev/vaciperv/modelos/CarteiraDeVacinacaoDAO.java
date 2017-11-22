@@ -15,7 +15,7 @@ public class CarteiraDeVacinacaoDAO {
 
     final List<Vacina> vacinas = new ArrayList<Vacina>();
 
-    public List<Vacina> carregaCarteiraDeVacina(){
+    public List<Vacina> carregaCarteiraDeVacina() {
 
         //DataBase
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
@@ -33,7 +33,7 @@ public class CarteiraDeVacinacaoDAO {
 
                     vacinas.add(vacina);
 
-                    Log.d("DataBase","Dados Aqui!");
+                    Log.d("DataBase", "Dados Aqui!");
 
                 }
 
@@ -44,7 +44,6 @@ public class CarteiraDeVacinacaoDAO {
 
             }
         });
-
 
 
         return vacinas;

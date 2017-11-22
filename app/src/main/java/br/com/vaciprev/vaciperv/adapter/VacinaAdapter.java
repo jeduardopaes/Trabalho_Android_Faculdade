@@ -44,7 +44,7 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
     @Override
     public VacinaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.vacina_card,null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.vacina_card, null);
 
         VacinaHolder vacinaHolder = new VacinaHolder(view);
 
@@ -59,7 +59,7 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
         holder.vacinaTitulo.setText(vacina.getNome());
         holder.vacinaData.setText(DateHelper.getDataFormated(new Date(vacina.getDataDeAplicacao())));
 
-        if(vacina.hasSegundaDose()){
+        if (vacina.hasSegundaDose()) {
             holder.vacinaSegundaData.setText(DateHelper.getDataFormated(new Date(vacina.getDataDaSegundaDose())));
         }
 
@@ -70,15 +70,14 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
         notifyDataSetChanged();
     }
 
-    private void remove(Vacina vacina){
+    private void remove(Vacina vacina) {
         this.vacinas.remove(vacina);
         notifyDataSetChanged();
     }
 
-    public void update(){
+    public void update() {
         notifyDataSetChanged();
     }
-
 
 
     @Override
@@ -90,7 +89,7 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
         this.vacinas.clear();
     }
 
-    public class VacinaHolder extends RecyclerView.ViewHolder{
+    public class VacinaHolder extends RecyclerView.ViewHolder {
 
         TextView vacinaTitulo;
         TextView vacinaData;
@@ -103,11 +102,11 @@ public class VacinaAdapter extends RecyclerView.Adapter<VacinaAdapter.VacinaHold
             vacinaData = (TextView) itemView.findViewById(R.id.vacina_data);
             vacinaSegundaData = (TextView) itemView.findViewById(R.id.vacina_data_segunda_dose);
 
-            itemView.setOnLongClickListener(new OnLongClickListener(){
+            itemView.setOnLongClickListener(new OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
 
-                    Log.d("RemoveFromDB","DBVACINADEVERIASERREMOVIDA");
+                    Log.d("RemoveFromDB", "DBVACINADEVERIASERREMOVIDA");
 
                     int vacinaPosition = getLayoutPosition();
 
